@@ -1,1 +1,2 @@
 mkdir -p .github/workflows
+notepad .github/workflows/build_stais.yml
