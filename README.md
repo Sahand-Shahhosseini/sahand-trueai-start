@@ -15,3 +15,6 @@ using `sstai.core.load_lemmas()`.
 
 A simple SwiftUI application is available under the `ios/` directory. It demonstrates how to connect to the FastAPI backend and compute fractal results on both iPhone and iPad.
 
+## Documentation
+- See `docs/entropy-lemma.md` for the entropy lemma and example.
+
