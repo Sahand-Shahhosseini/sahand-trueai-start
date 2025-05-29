@@ -15,3 +15,7 @@ using `sstai.core.load_lemmas()`.
 
 A simple SwiftUI application is available under the `ios/` directory. It demonstrates how to connect to the FastAPI backend and compute fractal results on both iPhone and iPad.
 
+
+## Cross-Platform Usage
+
+The backend runs on Windows, Linux and macOS. See `docs/platform-guide.md` for platform-specific instructions, including example code for .NET and Android clients.
