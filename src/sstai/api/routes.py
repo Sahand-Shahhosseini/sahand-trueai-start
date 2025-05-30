@@ -1,8 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from pydantic import BaseModel
 from typing import List
 
-from sstai.core.fractal import compute_fractal
+from sstai.core.fractal import compute_fractal, compute_fractal_from_codes
+from sstai.core.knapsack import sahand_knapsack
+from sstai.security import verify_api_key
 
 app = FastAPI()
 
@@ -12,7 +14,46 @@ class FractalRequest(BaseModel):
 class FractalResponse(BaseModel):
     result: List[float]
 
+
+class LemmaFractalRequest(BaseModel):
+    codes: List[str]
+
+
+class LemmaFractalResponse(BaseModel):
+    result: List[float]
+
 @app.post("/fractal", response_model=FractalResponse)
-def fractal_endpoint(req: FractalRequest) -> FractalResponse:
+def fractal_endpoint(
+    req: FractalRequest, _auth: None = Depends(verify_api_key)
+) -> FractalResponse:
     result = compute_fractal(req.numbers)
     return FractalResponse(result=result)
+
+
+@app.post("/lemma-fractal", response_model=LemmaFractalResponse)
+def lemma_fractal_endpoint(
+    req: LemmaFractalRequest, _auth: None = Depends(verify_api_key)
+) -> LemmaFractalResponse:
+    result = compute_fractal_from_codes(req.codes)
+    return LemmaFractalResponse(result=result)
+
+
+class KnapsackRequest(BaseModel):
+    basis: List[List[float]]
+    l_father: List[float]
+    g: List[List[float]]
+
+
+class KnapsackResponse(BaseModel):
+    result: List[float]
+
+
+@app.post("/knapsack", response_model=KnapsackResponse)
+def knapsack_endpoint(
+    req: KnapsackRequest, _auth: None = Depends(verify_api_key)
+) -> KnapsackResponse:
+    basis = [list(map(float, b)) for b in req.basis]
+    L_father = [float(v) for v in req.l_father]
+    G = [[float(x) for x in row] for row in req.g]
+    selected = sahand_knapsack(basis, L_father, G)
+    return KnapsackResponse(result=[float(x) for x in selected])
