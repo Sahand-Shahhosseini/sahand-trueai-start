@@ -21,3 +21,15 @@ A simple SwiftUI application is available under the `ios/` directory. It demonst
 ## Cross-Platform Usage
 
 The backend runs on Windows, Linux and macOS. See `docs/platform-guide.md` for platform-specific instructions, including example code for .NET and Android clients.
+
+## FractalNet AI Model
+
+This repository now contains a small pure-Python model called **FractalNet**.
+It learns to approximate the fractal values associated with the 150 lemma codes.
+You can train it using:
+
+```python
+from sstai.ai import train_fractal_model, predict_fractal
+model = train_fractal_model()
+predictions = predict_fractal(model, ["SFL_001", "SFL_002"])
+```
