@@ -6,6 +6,8 @@ import sqlite3
 from importlib import resources
 from typing import List, Dict
 
+from .security import get_encryptor
+
 # Path to database file
 DB_PATH = os.getenv(
     "SSTAI_DB_PATH",
@@ -24,11 +26,12 @@ def init_db() -> None:
         cur.execute("SELECT COUNT(*) FROM lemmas")
         count = cur.fetchone()[0]
         if count == 0:
+            enc = get_encryptor()
             with resources.files("sstai.data").joinpath("lemmas.json").open("r", encoding="utf-8") as f:
                 data = json.load(f)
             cur.executemany(
                 "INSERT INTO lemmas (code, title) VALUES (?, ?)",
-                [(d["code"], d["title"]) for d in data],
+                [(d["code"], enc.encrypt(d["title"])) for d in data],
             )
             conn.commit()
     finally:
@@ -43,6 +46,7 @@ def load_lemmas_from_db() -> List[Dict[str, str]]:
         cur = conn.cursor()
         cur.execute("SELECT code, title FROM lemmas ORDER BY rowid")
         rows = cur.fetchall()
-        return [{"code": c, "title": t} for c, t in rows]
+        enc = get_encryptor()
+        return [{"code": c, "title": enc.decrypt(t)} for c, t in rows]
     finally:
         conn.close()
