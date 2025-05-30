@@ -1,0 +1,9 @@
+module:
+  id: M9
+  name: "انسداد/سکوت شعور"
+  lemmas: [SFL_244, SFL_245, SFL_246]
+  function: "شناسایی نقاط کور و قطع انتقال"
+  inputs: [سیگنال بازتاب]
+  outputs: [سیگنال مهار, گزارش سکوت]
+  dependencies: [M8]
+  output_layer: "غشای مهارکننده"

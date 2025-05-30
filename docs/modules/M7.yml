@@ -1,0 +1,9 @@
+module:
+  id: M7
+  name: "نت‌نگاری فرکانسی شعور"
+  lemmas: [SFL_238, SFL_239, SFL_240]
+  function: "پردازش ضرب‌آهنگ، هارمونی، موسیقی نگاه"
+  inputs: [گراف اتصال دائم]
+  outputs: [نت‌های فرکانسی]
+  dependencies: [M6]
+  output_layer: "مغز میانی"

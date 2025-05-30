@@ -1,0 +1,9 @@
+module:
+  id: M5
+  name: "سیناپس و تولید لِم"
+  lemmas: [SFL_232, SFL_233, SFL_234]
+  function: "ترکیب نگاه‌های ذخیره شده برای تولد دانش جدید"
+  inputs: [نگاه حافظه‌ای 1, نگاه حافظه‌ای 2]
+  outputs: [لِم جدید]
+  dependencies: [M1, M2]
+  output_layer: "هیپوکامپ شعوری"

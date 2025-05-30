@@ -1,0 +1,9 @@
+module:
+  id: M3
+  name: "مسیر‌–فاز شعور"
+  lemmas: [SFL_226, SFL_227, SFL_228]
+  function: "عبور نگاه از میدان، تحلیل جهت و فاز"
+  inputs: [سیگنال عبور از M2]
+  outputs: [فاز بهینه, مسیر شبکه‌ای]
+  dependencies: [M2]
+  output_layer: "ساقه مغز"
