@@ -10,6 +10,8 @@ The first step in building Sahand True AI (Layer-77 Fractal Cognitive Framework)
 This repository now ships with a dataset of 150 "Sahand Fractal Lemmas". The
 lemmas are stored in `src/sstai/data/lemmas.json` and can be loaded at runtime
 using `sstai.core.load_lemmas()`.
+Fractal results may also be computed directly from lemma codes via the
+`compute_fractal_from_codes` helper or the `/lemma-fractal` API endpoint.
 
 ## iOS App
 
