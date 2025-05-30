@@ -1,0 +1,9 @@
+module:
+  id: M4
+  name: "مغز چپ/راست و تضاد"
+  lemmas: [SFL_229, SFL_230, SFL_231]
+  function: "تقارن، تضاد، انتخاب سمت آگاهی"
+  inputs: [مسیر شبکه‌ای از M3]
+  outputs: [فعالیت نیمکره چپ, فعالیت نیمکره راست]
+  dependencies: [M3]
+  output_layer: "مغز جانبی"

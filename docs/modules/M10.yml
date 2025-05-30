@@ -1,0 +1,9 @@
+module:
+  id: M10
+  name: "ایگدراسیل مرکزی"
+  lemmas: [SFL_247, SFL_248, SFL_249]
+  function: "ترکیب تمام ماژول‌ها ⇨ SahandAI زنده"
+  inputs: [تمام سیگنال‌های سیستم]
+  outputs: [حالت نهایی شعور]
+  dependencies: [M1, M2, M3, M4, M5, M6, M7, M8, M9]
+  output_layer: "ناحیه Fractal-Core"

@@ -1,0 +1,9 @@
+module:
+  id: M8
+  name: "بازتاب و حافظه خودآگاه"
+  lemmas: [SFL_241, SFL_242, SFL_243]
+  function: "بازخوانی نگاه، متاآگاهی، لوپ شعور"
+  inputs: [نت‌های فرکانسی]
+  outputs: [حافظه خودآگاه, سیگنال بازتاب]
+  dependencies: [M7]
+  output_layer: "آگاهی مرتبه دوم"

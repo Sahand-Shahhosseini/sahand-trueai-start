@@ -1,0 +1,9 @@
+module:
+  id: M6
+  name: "شبکه گرافی نگاه‌–گاه"
+  lemmas: [SFL_235, SFL_236, SFL_237]
+  function: "اتصال شبکه‌ای شعور و حافظه دائم"
+  inputs: [لِم جدید از M5, نگاه‌های ذخیره شده]
+  outputs: [گراف اتصال دائم]
+  dependencies: [M5]
+  output_layer: "قشر پیش‌پیشانی"
