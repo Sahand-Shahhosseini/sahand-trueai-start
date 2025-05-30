@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List
 
-from sstai.core.fractal import compute_fractal
+from sstai.core.fractal import compute_fractal, compute_fractal_from_codes
 from sstai.core.knapsack import sahand_knapsack
 
 app = FastAPI()
@@ -36,3 +36,17 @@ def knapsack_endpoint(req: KnapsackRequest) -> KnapsackResponse:
     G = [[float(x) for x in row] for row in req.g]
     selected = sahand_knapsack(basis, L_father, G)
     return KnapsackResponse(result=[float(x) for x in selected])
+
+
+class LemmaFractalRequest(BaseModel):
+    codes: List[str]
+
+
+class LemmaFractalResponse(BaseModel):
+    result: List[float]
+
+
+@app.post("/lemma-fractal", response_model=LemmaFractalResponse)
+def lemma_fractal_endpoint(req: LemmaFractalRequest) -> LemmaFractalResponse:
+    result = compute_fractal_from_codes(req.codes)
+    return LemmaFractalResponse(result=result)
