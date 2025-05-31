@@ -45,6 +45,15 @@ python examples/train_torch_model.py
 
 The FastAPI backend exposes this model at the `/fractal-net` endpoint.
 
+## STAI Persona Demo
+
+Run the simple persona demonstration script to view the boot message and loaded
+persona text:
+
+```bash
+python examples/run_persona.py
+```
+
 ## Running
 
 Start the server with:
