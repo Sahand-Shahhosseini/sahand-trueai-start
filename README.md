@@ -59,6 +59,25 @@ Run the test suite using:
 pytest -q
 ```
 
+### راه‌اندازی در پوشه `sstai`
+
+برای اجرای هسته‌ی پروژه می‌توانید مراحل زیر را دنبال کنید:
+
+```bash
+# پوشهٔ پروژه
+cd sstai
+
+# ساخت محیط مجازی اختیاری
+python -m venv .venv
+source .venv/bin/activate  # در ویندوز: .venv\Scripts\activate
+
+# نصب وابستگی‌ها
+pip install -r requirements.txt
+
+# اجرای هسته
+python main.py
+```
+
 ## Gold Checkpoint
 
 `GOLD_CHECKPOINT.yml` records the commit and test hashes of the most stable
