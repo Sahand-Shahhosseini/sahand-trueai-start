@@ -8,12 +8,12 @@ from sstai.core.sahand_knapsack import SahandKnapsack
 
 def test_sahand_knapsack_integration():
     problem = {
-        "variables": ["x1", "x2"],
-        "weights": {"x1": 1, "x2": 2},
-        "clauses": [[1], [2]],
+        "variables": [1, 2],
+        "weights": {1: 1, 2: 2},
+        "clauses": [[1], [1, 2]],
     }
     knapsack = SahandKnapsack(problem)
     result = knapsack.analyze_and_optimize()
-    assert result["selected_variables"] == ["x1"]
+    assert result["selected_variables"] == [1]
     assert result["total_weight"] == 1
     assert "time" in result
