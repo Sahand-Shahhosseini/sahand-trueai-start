@@ -45,6 +45,17 @@ python examples/train_torch_model.py
 
 The FastAPI backend exposes this model at the `/fractal-net` endpoint.
 
+## Chat CLI
+
+Create a `.env` file in `examples/` with your `OPENAI_API_KEY`. Then run:
+
+```bash
+python examples/chat_cli.py
+```
+
+This opens an interactive session with the STAI persona using the OpenAI API.
+
+
 ## Running
 
 Start the server with:
