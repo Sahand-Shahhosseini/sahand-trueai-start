@@ -5,14 +5,23 @@ from typing import List
 from sstai.core.fractal import compute_fractal, compute_fractal_from_codes
 from sstai.core.knapsack import sahand_knapsack
 from sstai.security import authenticate
+from sstai.ai import train_torch_fractal_model, predict_torch_fractal
 
 app = FastAPI()
+# Train a small torch model on startup for demo purposes if PyTorch is available
+try:
+    TORCH_MODEL = train_torch_fractal_model(epochs=50, lr=0.1)
+except Exception:  # pragma: no cover - torch missing
+    TORCH_MODEL = None
+
 
 class FractalRequest(BaseModel):
     numbers: List[float]
 
+
 class FractalResponse(BaseModel):
     result: List[float]
+
 
 def fractal_endpoint(req: FractalRequest) -> FractalResponse:
     result = compute_fractal(req.numbers)
@@ -72,3 +81,28 @@ def lemma_fractal_route(
 ) -> LemmaFractalResponse:
     authenticate(authorization)
     return lemma_fractal_endpoint(req)
+
+
+class TorchFractalRequest(BaseModel):
+    codes: List[str]
+
+
+class TorchFractalResponse(BaseModel):
+    result: List[float]
+
+
+def torch_fractal_endpoint(req: TorchFractalRequest) -> TorchFractalResponse:
+    if TORCH_MODEL is None:
+        raise RuntimeError("TorchFractalNet unavailable")
+    result = predict_torch_fractal(TORCH_MODEL, req.codes)
+    return TorchFractalResponse(result=result)
+
+
+if TORCH_MODEL is not None:
+
+    @app.post("/fractal-net", response_model=TorchFractalResponse)
+    def torch_fractal_route(
+        req: TorchFractalRequest, authorization: str = Header(None)
+    ) -> TorchFractalResponse:
+        authenticate(authorization)
+        return torch_fractal_endpoint(req)
