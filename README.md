@@ -33,3 +33,26 @@ from sstai.ai import train_fractal_model, predict_fractal
 model = train_fractal_model()
 predictions = predict_fractal(model, ["SFL_001", "SFL_002"])
 ```
+
+## Usage
+
+Run the FastAPI server with:
+
+```bash
+uvicorn sstai.api.routes:app --reload
+```
+
+Execute the test suite with:
+
+```bash
+pytest
+```
+
+Example model training script is provided under `examples/torch_train.py`.
+
+For reproducible research we track stable checkpoints in `GOLD_CHECKPOINT.yml` as explained in `docs/gold-layer.md`.
+
+## License
+
+This project is released under the terms of the MIT License. See [LICENSE](LICENSE) for details.
+

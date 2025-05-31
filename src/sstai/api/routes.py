@@ -3,16 +3,26 @@ from pydantic import BaseModel
 from typing import List
 
 from sstai.core.fractal import compute_fractal, compute_fractal_from_codes
+from sstai.ai import (
+    TorchFractalModel,
+    train_torch_fractal_model,
+    predict_torch_fractal,
+)
 from sstai.core.knapsack import sahand_knapsack
 from sstai.security import authenticate
 
 app = FastAPI()
 
+TORCH_MODEL: TorchFractalModel | None = None
+
+
 class FractalRequest(BaseModel):
     numbers: List[float]
 
+
 class FractalResponse(BaseModel):
     result: List[float]
+
 
 def fractal_endpoint(req: FractalRequest) -> FractalResponse:
     result = compute_fractal(req.numbers)
@@ -72,3 +82,38 @@ def lemma_fractal_route(
 ) -> LemmaFractalResponse:
     authenticate(authorization)
     return lemma_fractal_endpoint(req)
+
+
+class TorchTrainResponse(BaseModel):
+    detail: str
+
+
+@app.post("/torch-train", response_model=TorchTrainResponse)
+def torch_train_route(authorization: str = Header(None)) -> TorchTrainResponse:
+    authenticate(authorization)
+    global TORCH_MODEL
+    TORCH_MODEL = train_torch_fractal_model(epochs=50, lr=0.1)
+    return TorchTrainResponse(detail="trained")
+
+
+class TorchPredictRequest(BaseModel):
+    codes: List[str]
+
+
+class TorchPredictResponse(BaseModel):
+    result: List[float]
+
+
+def torch_predict_endpoint(req: TorchPredictRequest) -> TorchPredictResponse:
+    if TORCH_MODEL is None:
+        raise RuntimeError("model not trained")
+    result = predict_torch_fractal(TORCH_MODEL, req.codes)
+    return TorchPredictResponse(result=result)
+
+
+@app.post("/torch-predict", response_model=TorchPredictResponse)
+def torch_predict_route(
+    req: TorchPredictRequest, authorization: str = Header(None)
+) -> TorchPredictResponse:
+    authenticate(authorization)
+    return torch_predict_endpoint(req)

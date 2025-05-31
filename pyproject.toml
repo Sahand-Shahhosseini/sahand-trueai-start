@@ -4,6 +4,7 @@ version = "0.1.0"
 description = "Sahand Shahhosseini True AI – prototype implementation"
 authors = ["Sahand Shahhosseini <creator@example.com>"]
 readme = "README.md"
+license = "MIT"
 packages = [{ include = "sstai", from = "src" }]
 include = ["src/sstai/data/lemmas.json"]
 
