@@ -47,8 +47,8 @@ The FastAPI backend exposes this model at the `/fractal-net` endpoint.
 
 ## Chat CLI
 
-Create a `.env` file in `examples/` with your `OPENAI_API_KEY`. Install the
-optional dependencies and run:
+Copy `.env.example` to `.env` in the `examples/` directory and add your
+`OPENAI_API_KEY`. Install the optional dependencies and run:
 
 ```bash
 pip install "openai>=1.21.1" "python-dotenv>=1.0.1" "rich>=13.7.1"
