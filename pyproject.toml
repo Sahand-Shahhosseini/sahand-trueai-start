@@ -5,7 +5,7 @@ description = "Sahand Shahhosseini True AI – prototype implementation"
 authors = ["Sahand Shahhosseini <creator@example.com>"]
 readme = "README.md"
 packages = [{ include = "sstai", from = "src" }]
-include = ["src/sstai/data/lemmas.json"]
+include = ["src/sstai/data/lemmas.json", "src/sstai/data/sahandsat_stabilized.json"]
 
 [tool.poetry.dependencies]
 python = "^3.10"

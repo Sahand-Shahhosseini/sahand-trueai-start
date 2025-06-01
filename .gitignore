@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+src/sstai/data/lemmas.db
 !.env
 .env.*
 !.env.example
