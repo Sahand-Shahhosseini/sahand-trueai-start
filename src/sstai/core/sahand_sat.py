@@ -3,6 +3,14 @@ import json
 import time
 from typing import Dict, Iterable, List, Union
 
+try:
+    from pysat.formula import CNF
+    from pysat.solvers import Glucose3
+
+    HAS_PYSAT = True
+except ImportError:  # pragma: no cover - optional dependency
+    HAS_PYSAT = False
+
 
 class SahandSAT:
     """Simple CNF SAT solver with weight-based optimization."""
@@ -44,7 +52,12 @@ class SahandSAT:
         )
 
     def solve(self, verbose: bool = False) -> Dict:
-        """Brute-force search for the minimal-weight satisfying assignment."""
+        """Solve the SAT instance using PySAT if available."""
+        if HAS_PYSAT:
+            return self._solve_pysat(verbose)
+        return self._solve_bruteforce(verbose)
+
+    def _solve_bruteforce(self, verbose: bool = False) -> Dict:
         min_weight = float("inf")
         best_assignment: Dict[int, bool] | None = None
         start = time.time()
@@ -69,6 +82,31 @@ class SahandSAT:
             "vars": self.variables,
             "clause_count": len(self.clauses),
             "time_seconds": elapsed,
+            "method": "bruteforce",
+        }
+        return self.solution
+
+    def _solve_pysat(self, verbose: bool = False) -> Dict:
+        start = time.time()
+        cnf = CNF(from_clauses=self.clauses)
+        best, best_a = float("inf"), None
+        with Glucose3(bootstrap_with=cnf) as solver:
+            while solver.solve():
+                model = solver.get_model()
+                a = {abs(v): v > 0 for v in model}
+                cost = self.total_weight(a)
+                if cost < best:
+                    best, best_a = cost, a.copy()
+                solver.add_clause([-v if a[abs(v)] else v for v in self.variables])
+
+        elapsed = time.time() - start
+        self.solution = {
+            "min_weight": best,
+            "assignment": best_a,
+            "vars": self.variables,
+            "clause_count": len(self.clauses),
+            "time_seconds": elapsed,
+            "method": "pysat",
         }
         return self.solution
 
@@ -82,6 +120,7 @@ class SahandSAT:
                 {
                     "solution": self.solution["assignment"],
                     "min_weight": self.solution["min_weight"],
+                    "method": self.solution.get("method", "bruteforce"),
                 }
             )
         with open(filepath, "w") as f:

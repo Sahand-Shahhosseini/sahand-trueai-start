@@ -14,3 +14,10 @@ def test_sahand_sat_solver_min_weight():
     assert result["min_weight"] == 0.5
     assert result["assignment"][2] is True
     assert result["assignment"][1] is False
+
+
+def test_sahand_sat_solver_method():
+    clauses = [[1], [-1, 2]]
+    solver = SahandSAT(clauses=clauses)
+    result = solver.solve()
+    assert result["method"] in {"bruteforce", "pysat"}
