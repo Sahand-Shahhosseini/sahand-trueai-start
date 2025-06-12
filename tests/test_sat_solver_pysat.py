@@ -1,3 +1,11 @@
+3aot3p-codex/save-sahandsat-solver-code-to-file
+=======
+import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+main
 from sat_solver.SahandSAT_PySAT import SahandSAT
 
 
