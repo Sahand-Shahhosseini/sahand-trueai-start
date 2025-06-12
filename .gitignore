@@ -5,6 +5,8 @@ __pycache__/
 !.env
 .env.*
 !.env.example
+src/sstai/data/lemmas.db
+!.env.example
 .idea/
 .vscode/
 src/sstai/data/lemmas.db

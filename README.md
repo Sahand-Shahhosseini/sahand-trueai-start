@@ -11,6 +11,12 @@ See [docs/wifi_access.md](docs/wifi_access.md) for instructions on connecting
 Sahand's device to a WiFi network using `nmcli` or the accompanying Python
 helper.
 
+Copy `.env.example` to `.env` in the `examples/` directory and add your
+`OPENAI_API_KEY`. Install the optional dependencies and run:
+See [docs/wifi_access.md](docs/wifi_access.md) for instructions on connecting
+Sahand's device to a WiFi network using `nmcli` or the accompanying Python
+helper.
+
 ## Sahand Fractal Lemmas
 
 This repository now ships with a dataset of 150 "Sahand Fractal Lemmas". The
