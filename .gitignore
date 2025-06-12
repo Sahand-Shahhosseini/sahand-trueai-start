@@ -4,5 +4,7 @@ __pycache__/
 *.pyd
 !.env
 .env.*
+!.env.example
 .idea/
 .vscode/
+src/sstai/data/lemmas.db
